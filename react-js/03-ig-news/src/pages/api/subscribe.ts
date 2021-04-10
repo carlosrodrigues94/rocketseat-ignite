@@ -8,7 +8,7 @@ type User = {
     id: string;
   };
   data: {
-    stripe_customer_id;
+    stripe_customer_id: string;
   };
 };
 export default async function (req: NextApiRequest, res: NextApiResponse) {

@@ -7,7 +7,7 @@ export function Header() {
       <div className={styles.headerContent}>
         <img src="/images/logo.svg" alt="img-logo" />
         <nav>
-          <a className={styles.active}>Home</a>
+          <a className={styles.active} href="http://localhost:3000">Home</a>
           <a>Posts</a>
         </nav>
         <SignInButton />

@@ -1,9 +1,10 @@
 import styles from "./home.module.scss";
-
+import {query as q} from 'faunadb'
 import Head from "next/head";
 import SubscribeButton from "../components/SubscribeButton";
 import { GetServerSideProps, GetStaticProps } from "next";
 import { stripe } from "../services/stripe";
+import { fauna } from "../services/fauna";
 
 interface HomeProps {
   product: {
@@ -40,6 +41,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const price = await stripe.prices.retrieve("price_1IZ3XdH5xpGhM2zyCCZL64rK", {
     expand: ["product"],
   });
+
+ 
 
   const product = {
     priceId: price.id,

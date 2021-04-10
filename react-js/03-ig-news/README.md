@@ -10,6 +10,18 @@ npm run dev
 yarn dev
 ```
 
+### Listening Stripe Webhooks
+
+```bash
+# with stripe cli, run the following command
+
+$ stripe listen --forward-to localhost:3000/api/webhooks
+
+# you will receive a message with the secret of webhook
+# copy the secret and add in .env, STRIPE_WEBHOOK_SECRET
+
+```
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.

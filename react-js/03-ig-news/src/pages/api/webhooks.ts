@@ -21,7 +21,12 @@ export const config = {
   },
 };
 
-const relevantEvents = new Set(["checkout.session.completed"]);
+const relevantEvents = new Set([
+  "checkout.session.completed",
+  "customer.subscription.created",
+  "customer.subscription.updated",
+  "customer.subscription.deleted",
+]);
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {
@@ -42,29 +47,40 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     }
 
     const { type } = event;
+    const subscription = event.data.object as Stripe.Subscription;
 
     if (relevantEvents.has(type)) {
       try {
+        console.log("Type que Chegou", type);
+
         switch (type) {
-          case "checkout.session.completed":
-            const checkoutSession = event.data
-              .object as Stripe.Checkout.Session;
-            await saveSubscription(
-              checkoutSession.subscription.toString(),
-              checkoutSession.customer.toString()
-            );
+          /** Subscription created, Must create in FAUNA DB */
+          case "customer.subscription.created":
+          case "customer.subscription.updated":
+            await saveSubscription({
+              customerId: subscription.customer.toString(),
+              subscriptionId: subscription.id,
+              subscriptionExists: false,
+            });
+            break;
+
+          /** Subscription updated, Must update in FAUNA DB */
+          case "customer.subscription.updated":
+          case "customer.subscription.deleted":
+            await saveSubscription({
+              customerId: subscription.customer.toString(),
+              subscriptionId: subscription.id,
+              subscriptionExists: true,
+            });
 
             break;
 
           default:
             throw new Error("Unhandled event");
-            break;
         }
       } catch (err) {
         return res.json({ error: `Webhook handler failed ${err.message}` });
       }
-
-      return;
     }
     return res.status(200).json({ ok: true });
   } else {
