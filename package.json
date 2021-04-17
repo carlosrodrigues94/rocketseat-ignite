@@ -1,5 +1,10 @@
 {
   "dependencies": {
+    "@prismicio/client": "^4.0.0",
+    "prismic-dom": "^2.2.5",
     "react-toastify": "^7.0.3"
+  },
+  "devDependencies": {
+    "@types/prismic-dom": "^2.1.1"
   }
 }
