@@ -71,8 +71,6 @@ export const getStaticProps: GetStaticProps = async () => {
     ),
   }));
 
-  console.log("typeof ====>", posts[0].slug);
-
   return {
     props: { posts },
     revalidate: 5,
