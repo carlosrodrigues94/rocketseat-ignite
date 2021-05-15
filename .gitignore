@@ -10,8 +10,8 @@ react-js/03-ig-news/dist/
 react-js/04-dashgo/node_modules
 react-js/04-dashgo/dist
 
-react-js/05-authentication/frontend/node_modules
-react-js/05-authentication/backend/node_modules
+react-js/05-authentication/frontend/node_modules/
+react-js/05-authentication/backend/node_modules/
 
 
 challenges/react-js/01-conceitos-do-react/node_modules/
