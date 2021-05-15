@@ -27,8 +27,6 @@ export default function SignIn() {
 
   const handleSignIn: SubmitHandler<SignInFormData> = async (values, event) => {
     event.preventDefault();
-
-    console.log(values);
   };
 
   return (

@@ -50,10 +50,21 @@ export function makeServer() {
         const pageStart = (Number(page) - 1) * Number(per_page);
         const pageEnd = pageStart + Number(per_page);
 
-        const users = this.serialize(schema.all("user")).users.slice(
-          pageStart,
-          pageEnd
-        );
+        const users = this.serialize(schema.all("user"))
+          .users.sort((a: User, b: User) => {
+            const userIsAfter = isAfter(
+              new Date(a.createdAt),
+              new Date(b.createdAt)
+            );
+            if (userIsAfter) {
+              return 1;
+            }
+            if (!userIsAfter) {
+              return -1;
+            }
+            return 0;
+          })
+          .slice(pageStart, pageEnd);
 
         return new Response(200, { "x-total-count": String(total) }, { users });
       });
