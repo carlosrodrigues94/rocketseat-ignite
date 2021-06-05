@@ -15,7 +15,7 @@ const SubscribeButton: React.FC<SubscribeButtonProps> = () => {
   const [session] = useSession();
   const router = useRouter();
 
-  const sessionTyped = (session as any) as ISession;
+  const sessionTyped = session as any as ISession;
 
   const handleSubscribe = async () => {
     if (!session) {
@@ -32,8 +32,6 @@ const SubscribeButton: React.FC<SubscribeButtonProps> = () => {
       const response: AxiosResponse = await api.post("/subscribe");
 
       const { session } = response.data;
-
-      console.log("Session id  => ", response.data);
 
       const stripe = await getStripeJs();
 
