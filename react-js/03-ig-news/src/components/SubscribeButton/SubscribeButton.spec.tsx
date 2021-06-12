@@ -60,6 +60,7 @@ describe("SubscribeButton", () => {
     } as unknown as NextRouter);
 
     const { getByText } = render(<SubscribeButton priceId="price-id" />);
+    screen.logTestingPlaygroundURL();
 
     const subscribeButton = getByText("Subscribe Now");
 

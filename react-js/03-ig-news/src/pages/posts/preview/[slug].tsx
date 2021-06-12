@@ -20,7 +20,7 @@ interface PostPreviewProps {
 const PostPreview: React.FC<PostPreviewProps> = ({ post }) => {
   const [session] = useSession();
   const router = useRouter();
-  const sessionTyped = (session as any) as ISession;
+  const sessionTyped = session as any as ISession;
 
   useEffect(() => {
     if (sessionTyped?.activeSubscription) {
